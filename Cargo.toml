@@ -1,0 +1,19 @@
+[package]
+name = "hc-homie5-macros"
+version = "0.1.0"
+edition = "2021"
+publish = true
+description = "Helper crate for hc-homie5 to implement procedural macros for homie device creation."
+repository = "https://github.com/schaze/hc-homie5-macros"
+license = "MIT"
+authors = ["schaze <schazet@gmail.com>"]
+readme = "README.md"
+keywords = ["homie", "homecontrol", "iot", "mqtt"]
+
+[dependencies]
+syn = { version = "2", features = ["full"] }
+quote = "1.0"
+proc-macro2 = "1.0"
+
+[lib]
+proc-macro = true
