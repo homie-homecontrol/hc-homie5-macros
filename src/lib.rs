@@ -32,7 +32,8 @@ pub fn homie_device(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     // Generate the necessary use statements
     let use_statements = quote! {
-        use hc_homie5::{HomieDeviceCore, HomieMQTTClient};
+        use hc_homie5::device::HomieDeviceCore;
+        use hc_homie5::client::HomieMQTTClient;
         use homie5::{
             device_description::HomieDeviceDescription, Homie5DeviceProtocol, HomieDeviceStatus,
             HomieDomain, HomieID, DeviceRef,
@@ -194,7 +195,7 @@ pub fn homie_device_enum(attr: TokenStream, item: TokenStream) -> TokenStream {
     let expanded = quote! {
         #input
 
-        impl hc_homie5::HomieDeviceCore for #enum_name {
+        impl hc_homie5::device::HomieDeviceCore for #enum_name {
             fn homie_domain(&self) -> &homie5::HomieDomain {
                 match self {
                     #(#homie_domain_arms)*
@@ -219,7 +220,7 @@ pub fn homie_device_enum(attr: TokenStream, item: TokenStream) -> TokenStream {
                 }
             }
 
-            fn client(&self) -> &hc_homie5::HomieMQTTClient {
+            fn client(&self) -> &hc_homie5::client::HomieMQTTClient {
                 match self {
                     #(#client_arms)*
                 }
@@ -244,7 +245,7 @@ pub fn homie_device_enum(attr: TokenStream, item: TokenStream) -> TokenStream {
             }
         }
 
-        impl hc_homie5::HomieDevice for #enum_name {
+        impl hc_homie5::device::HomieDevice for #enum_name {
             type ResultError = #error_ty;
 
             fn publish_property_values(
